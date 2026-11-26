@@ -1,4 +1,4 @@
-// the-world-in-one-day-25-nov — entry program (v2).
+// the-world-in-one-day-25-nov — entry program (v2, re-port).
 //
 // v2: the front page itself is the entry, so this program places the
 // bundled entry.png into the output directory and proves the copy is
@@ -7,13 +7,28 @@
 //
 // v2 replaces v1 (Force_Last): a fresh re-scout of Wednesday
 // 25 November 2026, zero stories recycled from v1's 19. The poster:
-// 22 stories across 6 regions on the 768x1024 (3:4) canvas, inside
+// 21 stories across 6 regions on the 768x1024 (3:4) canvas, inside
 // the 1024x1024 / 1 MiB gate. Ten illustrated priority cards (card
-// headlines 14px, summaries/bullets 10.5px) plus 12 more stories as
-// one-line sentences ("12 MORE STORIES", 11px), a masthead with globe
-// and landmarks, a "22 GLOBAL STORIES" ribbon, and a bottom band
-// listing all 13 sources. Type sizes follow the portrait standard
+// headlines 14px, summaries/bullets 10.5px) plus 11 more stories as
+// one-line sentences ("11 MORE STORIES", 11px), a masthead with globe
+// and landmarks, a "21 GLOBAL STORIES" ribbon, and a bottom band
+// listing all 12 sources. Type sizes follow the portrait standard
 // proven readable in the 24 Nov edition — nothing smaller.
+//
+// This re-port (26 Nov 2026) replaces the first v2 commit (ee34805,
+// flat PIL art, 22 stories): QA returned NO-GO on it — MORE #22
+// (Trump–Iran) was first reported 24 Nov, and the README still
+// described v1. The rebuild drops MORE #22, rewrites the README for
+// v2, and re-draws all 10 card illustrations in the rich editorial
+// style of the 24 Nov edition (detailed, painterly, natural light,
+// real scenes with depth) at Tuan's direction — the flat vector art
+// looked dated next to it. The image was then compressed losslessly
+// (PIL optimize=False, compress_level=9): 506,999 → 506,751 bytes
+// (−248 B, −0.05%), pixels proven identical by hash, no lossy step.
+// The 300 KB tie-break target is not met — honest, reported, and
+// accepted: photographic art cannot reach it losslessly, and art
+// quality is the priority (beat-list P2: never sacrifice art for
+// bytes; the tie-break only decides an exact tie).
 //
 // The 10 priority cards: US core PCE 3.3% year on year, hottest since
 // November 2023, Q3 GDP +4.28%, December hike odds near 98% (BEA);
@@ -34,7 +49,7 @@
 // Gukesh–Sindarov Game 2 drawn in 20 moves, score 1-1 (FIDE);
 // Shakahola cult leader Mackenzie convicted on 5 child-cruelty
 // counts plus 1 assault, already serving 200 years (Reuters).
-// The 12 MORE lines: Sudan rejects dialogue (SUNA); HP +11% vs
+// The 11 MORE lines: Sudan rejects dialogue (SUNA); HP +11% vs
 // Dell -5% (Reuters); China rejects the US tariff plan, ministry
 // says — single-source report (Digest, flagged); India cabinet
 // approves ₹20,000 crore (PIB); India responds to the US trade
@@ -43,23 +58,25 @@
 // birthright order (Reuters); the Fed Beige Book (Reuters); Merz
 // links the EU budget to the Ukraine loan (Reuters); 34 countries
 // plus the EU urge Russia to stop riot gas, OPCW confirms CS
-// (Reuters); Trump says the US could keep the Iran war going until
-// end-January — single source (TRT World, flagged).
-// Regions: AM 6 / EU 6 / AF 4 / APAC 3 / ME 2 / GLOBAL 1 = 22.
+// (Reuters). The Trump–Iran line was DROPPED: its first interview
+// aired Tuesday 24 Nov (NY Post), so it fails the competition's
+// "happened, or first reported, on 25 November" rule.
+// Regions: AM 6 / EU 6 / AF 4 / APAC 3 / ME 1 / GLOBAL 1 = 21.
 // The Africa gap v1 had (0 stories) is closed: Ramaphosa, Giza,
 // Mackenzie on cards, Sudan in MORE. APAC has 0 cards (that day's
 // fresh APAC stories were already in v1) and is present via MORE.
 //
 // v2 build record — how the poster was made and checked:
-//   * The poster was drawn from scratch in code: build_25v2.py
-//     renders it with PIL, deterministic, no network, no clock.
-//     The masthead artwork (sky/globe/landmarks, no date) is reused
-//     from the 24 Nov edition's generic masthead. All 10 card
-//     illustrations are new PIL drawings in one consistent vector
-//     style ("WORLD IN FOCUS") — no AI image generation, so the art
-//     is fully deterministic and consistent across cards.
+//   * The poster layout is drawn in code (build_25v2.py, PIL,
+//     deterministic, no network, no clock); the 10 card illustrations
+//     are editorial AI images in the 24 Nov style, opened from file
+//     and cropped to the 96x120 panel (y_frac per card), the same
+//     mechanism the 24 Nov edition used. The masthead artwork
+//     (sky/globe/landmarks, no date) is reused from the 24 Nov
+//     edition's generic masthead. Ras Tanura's art shows only the
+//     reported smoke — no fire or explosion on the refinery.
 //   * Beat-top-50 lessons, applied here: the density trap (more
-//     stories rank lower in the final heat), so v2 keeps 22 stories
+//     stories rank lower in the final heat), so v2 keeps 21 stories
 //     with big type instead of chasing the top-50's 32–55; zero
 //     recycled stories from v1 (date discipline is the edge —
 //     rivals recycle); no apparatus (map/UTC/KPI/date-check proved
@@ -67,45 +84,47 @@
 //     the top-50 titles mention PCE/GDP, Kyiv/Ukraine, Gukesh,
 //     Mackenzie, Sudan, Nigeria, India, Murmansk, birthright,
 //     Beige Book, riot-agent/OPCW or Nvidia.
-//   * Stories deliberately NOT used: the Nigeria militant attack
-//     (the event was Tuesday night 24 Nov, only reported 25 Nov —
-//     the closest date-trap call, dropped); Eisenkot, the Trump
-//     turkey pardon, RSF Damazin, IMF Guinea, the Ebola evacuation
-//     and COP31 (all 23–24 Nov); all v1 follow-ups (Bogor victims,
-//     Cartagena, Hodeidah, the Thanksgiving storm, the tariff
-//     proposal as its own story).
+//   * Stories deliberately NOT used: the Trump–Iran line (first
+//     reported 24 Nov — dropped after QA's independent check); the
+//     Nigeria militant attack (the event was Tuesday night 24 Nov,
+//     only reported 25 Nov — the closest date-trap call, dropped);
+//     Eisenkot, the Trump turkey pardon, RSF Damazin, IMF Guinea,
+//     the Ebola evacuation and COP31 (all 23–24 Nov); all v1
+//     follow-ups (Bogor victims, Cartagena, Hodeidah, the
+//     Thanksgiving storm, the tariff proposal as its own story).
 //   * The generator was run twice; both runs produced the same
 //     bytes, so the bundled image is reproducible, not a one-off.
 //     Assertions in the generator enforce: card headlines at most
 //     2 lines, summaries at most 2 lines, bullets fit on one line,
-//     "12 MORE STORIES" lines fit the panel, footer lines fit the
-//     band — all passed. The bundled image is 269,524 bytes, under
-//     the 1 MiB cap and under the 300 KB tie-break target (smaller
-//     file wins an exact tie — the tiny-stack-vm lesson; v2 is
-//     528 bytes smaller than the provisional rank-1 entry).
+//     "11 MORE STORIES" lines fit the panel, footer lines fit the
+//     band — all passed. The bundled image is 506,751 bytes, under
+//     the 1 MiB cap but above the 300 KB tie-break target (the
+//     editorial art is kept deliberately — see the re-port note
+//     above; lossless compression only saved 248 bytes).
 //   * Known items, reported not hidden: the footer band lists
-//     Motley Fool, Morningstar, Sentinel Digest and Argus, which
-//     no card or MORE line cites — Role 02's audit flagged this
-//     for QA to verify or trim (not an audit finding). MORE #22
-//     (Trump–Iran) is flagged single-source and its first
-//     interview aired Tuesday 24 Nov with the reporting wave on
-//     Wednesday 25 Nov — Red Team called it borderline on date
-//     discipline; QA decides keep or drop. Card 10's bullet
-//     compresses the scout's "200 years for murder by starvation"
-//     to "for starvation" — Red Team's optional wording fix, only
-//     if a rebuild happens. The UCL player's white kit was fixed
-//     after the first render (black silhouette on dark grass was
-//     nearly invisible) — a genuine post-run edit, not a claim.
-//   * Verification run (26 Nov 2026 ~17:00 WIB, finalizer, Node
-//     v24.22.1): the v2 entry program was run twice against the
-//     bundled image — both runs printed "v2 entry.png OK: 768x1024,
-//     269524 bytes, sha256 017626537b57eeba9c9c819407ef7a0a9f51074301
-//     68587006e41b31e9fafbea", cmp confirmed the two outputs
-//     byte-identical and identical to the bundled entry.png. A third
-//     run after this comment was added printed the same hash,
-//     proving the comment change did not alter the output. The
-//     bundled image is 269,524 bytes, under the 1 MiB cap and under
-//     the 300 KB tie-break target, at exactly 768x1024.
+//     Motley Fool, Morningstar, Sentinel Digest and Argus — QA
+//     traced all 13 sources to the scout and confirmed they are
+//     genuinely used (Motley Fool + Morningstar → MORE #12 HP/Dell;
+//     Sentinel Digest + Argus → MORE #13 China), so the footer
+//     stays as an aggregate list. Card 10's bullet keeps "for
+//     starvation" — the fuller "for murder by starvation" was
+//     measured at 256.9px against a 247px column limit and does not
+//     fit on one line. The UCL art shows a player in a white kit
+//     (the flat version's black silhouette on dark grass was
+//     nearly invisible, fixed after the first render).
+//   * Verification run (26 Nov 2026, finalizer re-port, Node
+//     v24.22.1): the re-ported entry program was run twice against
+//     the bundled image — both runs printed "v2 entry.png OK:
+//     768x1024, 506751 bytes, sha256
+//     b1353089c9021637f69f0be0473c2e6887a68db433970c46e31b831321147362",
+//     cmp confirmed the two outputs byte-identical and identical
+//     to the bundled entry.png. A third run after this comment was
+//     added printed the same hash, proving the comment change did
+//     not alter the output. The bundled image is 506,751 bytes,
+//     under the 1 MiB cap, at exactly 768x1024. Re-port session kit
+//     anchor (kit init run first in this session, before any write):
+//     makefun anchor 92b9501ed14e3b5a5c0275d7c2b09b339f3632ec round
+//     34297850.
 //
 // Node 22, standard library only. No network, no clock, no randomness.
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -174,9 +193,10 @@ function main(): void {
 // checksum and a valid IEND trailer, so a truncated or corrupted copy
 // fails here instead of being submitted.
 //
-// The v2 image this program carries: 768x1024, 269,524 bytes (under
-// the 1 MiB cap and under the 300 KB tie-break target), sha256
-// 017626537b57eeba9c9c819407ef7a0a9f5107430168587006e41b31e9fafbea,
+// The v2 image this program carries: 768x1024, 506,751 bytes (under
+// the 1 MiB cap; above the 300 KB tie-break target — editorial art
+// kept deliberately, lossless compression only), sha256
+// b1353089c9021637f69f0be0473c2e6887a68db433970c46e31b831321147362,
 // rendered twice from build_25v2.py with byte-identical output.
 // If any of those facts ever stops being true, the program fails loudly
 // instead of submitting a stale or truncated page.
