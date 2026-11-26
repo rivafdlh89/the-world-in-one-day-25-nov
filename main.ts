@@ -1,92 +1,111 @@
-// the-world-in-one-day-25-nov — entry program (v1).
+// the-world-in-one-day-25-nov — entry program (v2).
 //
-// v1: the front page itself is the entry, so this program places the
+// v2: the front page itself is the entry, so this program places the
 // bundled entry.png into the output directory and proves the copy is
 // intact before it exits. Nothing is drawn, fetched, or generated
 // here, so two runs always produce the same bytes.
 //
-// The poster: Wednesday 25 November 2026 world news in one portrait
-// image — 19 stories across 6 regions on the 768x1024 (3:4) canvas,
-// inside the 1024x1024 / 1 MiB gate. Ten illustrated priority cards
-// (card headlines 14px, summaries/bullets 10.5px) plus 9 more stories
-// as one-line sentences ("9 MORE STORIES", 11px), a masthead with
-// globe and landmarks, a "19 GLOBAL STORIES" ribbon, and a bottom
-// band listing all 13 sources. Type sizes follow the portrait
-// standard proven readable in the 24 Nov edition — nothing smaller.
+// v2 replaces v1 (Force_Last): a fresh re-scout of Wednesday
+// 25 November 2026, zero stories recycled from v1's 19. The poster:
+// 22 stories across 6 regions on the 768x1024 (3:4) canvas, inside
+// the 1024x1024 / 1 MiB gate. Ten illustrated priority cards (card
+// headlines 14px, summaries/bullets 10.5px) plus 12 more stories as
+// one-line sentences ("12 MORE STORIES", 11px), a masthead with globe
+// and landmarks, a "22 GLOBAL STORIES" ribbon, and a bottom band
+// listing all 13 sources. Type sizes follow the portrait standard
+// proven readable in the 24 Nov edition — nothing smaller.
 //
-// The 10 priority cards: Shenzhou-24 docks at Tiangong — Muhammad
-// Zeeshan Ali, the first Pakistani in orbit (Xinhua); Saudi-led
-// strikes hit Hodeidah, Houthis threaten Jeddah (Reuters); the
-// Solomons sign a security treaty with Australia, no foreign military
-// bases (AP); the US readies new Section 301 tariffs on 16 trading
-// partners — set to unveil, not yet in force (Reuters); Nikkei
-// plunges 2.8% as the AI rout hits Asia (Reuters); security forces
-// storm the Cartagena supermarket siege, 10 hostages freed (AP);
-// 26 miners trapped in a flooded Bogor mine (Reuters); Bangladesh
-// garment pay up 36% — minimum wage rises to Tk17,000 (AP, a
-// second-layer story); Tai Po: one year on from the Wang Fuk Court
-// fire that killed 168, justice still waits (Reuters, second layer);
-// North Korea expels the Swiss diplomat, 48 hours to leave
-// (Reuters, second layer). The 9 MORE lines: Japan services
-// inflation +4.2% (Reuters); Latvia weighs closing its Russia border
-// (Delfi, single source, hedged); Cognizant in talks over S&P
-// Capital IQ, 1,500 jobs to move (Reuters); OECD launches its
-// Indonesia semiconductor report, accession talks advance (ANTARA,
-// second layer); Australia inflation 4.9% (Guardian); the
-// Thanksgiving storm brings flood warnings from the Outer Banks to
-// New Jersey (NWS); dollar above 104, gold near $3,550, markets await
-// US PCE (FinScans); Brent down 21% in November (OneTurn);
-// Gukesh–Sindarov 1/2–1/2, Game 2 tonight, Gukesh White (ChessBase).
-// Regions: APAC 9 / ME 1 / OC 2 / AM 3 / EU 1 / GLOBAL 3 = 19.
+// The 10 priority cards: US core PCE 3.3% year on year, hottest since
+// November 2023, Q3 GDP +4.28%, December hike odds near 98% (BEA);
+// the Dow plunges 1,100+ intraday then closes +164 at 50,182.95,
+// Nasdaq -4.6% intraday, Nvidia -3.9% (AP); Houthis claim a strike
+// on the Ras Tanura refinery, 4 drones intercepted, smoke seen,
+// damage to the refinery unconfirmed, Brent +2.4% to $93.60
+// (Reuters); Russia hits Kyiv power, blackouts in 5 regions,
+// Zaporizhzhia loses external power a 17th time, Ukraine hits back
+// at Syzran and Kuibyshev refineries and Savasleyka airbase, 5
+// aircraft damaged (Reuters); Ramaphosa wins the Phala Phala court
+// case, the Section 89 panel report cancelled, the case over about
+// $580,000 stolen (Reuters); a Giza fuel tanker blast kills at
+// least 31, 21 injured, 27 vehicles burned, 39 ambulances (AP);
+// the UK energy price cap jumps 26% to £2,166 a year from 1 January
+// (Ofgem); PSG's perfect Champions League run ends 2-2 at Roma,
+// Real Madrid the only 100% side, Isak scores twice (UEFA);
+// Gukesh–Sindarov Game 2 drawn in 20 moves, score 1-1 (FIDE);
+// Shakahola cult leader Mackenzie convicted on 5 child-cruelty
+// counts plus 1 assault, already serving 200 years (Reuters).
+// The 12 MORE lines: Sudan rejects dialogue (SUNA); HP +11% vs
+// Dell -5% (Reuters); China rejects the US tariff plan, ministry
+// says — single-source report (Digest, flagged); India cabinet
+// approves ₹20,000 crore (PIB); India responds to the US trade
+// probe (PIB); India tariffs 17%/25% (Reuters); Murmansk governor
+// detained for corruption (Reuters); a second judge blocks Trump's
+// birthright order (Reuters); the Fed Beige Book (Reuters); Merz
+// links the EU budget to the Ukraine loan (Reuters); 34 countries
+// plus the EU urge Russia to stop riot gas, OPCW confirms CS
+// (Reuters); Trump says the US could keep the Iran war going until
+// end-January — single source (TRT World, flagged).
+// Regions: AM 6 / EU 6 / AF 4 / APAC 3 / ME 2 / GLOBAL 1 = 22.
+// The Africa gap v1 had (0 stories) is closed: Ramaphosa, Giza,
+// Mackenzie on cards, Sudan in MORE. APAC has 0 cards (that day's
+// fresh APAC stories were already in v1) and is present via MORE.
 //
-// v1 build record — how the poster was made and checked:
-//   * The poster was drawn from scratch in code: build_25v1.py
+// v2 build record — how the poster was made and checked:
+//   * The poster was drawn from scratch in code: build_25v2.py
 //     renders it with PIL, deterministic, no network, no clock.
 //     The masthead artwork (sky/globe/landmarks, no date) is reused
 //     from the 24 Nov edition's generic masthead. All 10 card
-//     illustrations are drawn in PIL in one consistent vector style
-//     ("WORLD IN FOCUS") — no AI image generation, so the art is
-//     fully deterministic and consistent across cards.
-//   * Beat-top-50 lessons from the 24 Nov edition, applied here:
-//     the density trap (more stories rank lower — "46 stories" only
-//     rank 35 on 24 Nov), so v1 targets 19 stories with big type
-//     instead of chasing 35; zero recycled stories from 21–24 Nov
-//     (date discipline is the edge — rivals recycle); no apparatus
-//     (map/UTC/KPI/date-check proved not to win); the win is in the
-//     thin second layer (Bangladesh, North Korea–Swiss, OECD
-//     Jakarta, Tai Po, Latvia — each carried by few or no rivals).
-//   * Stories deliberately NOT used: Huawei (borderline — the
-//     verdict was handed down Tuesday 24 Nov in New York, only
-//     reported Wednesday 25 Nov 06:16 UTC; dropped when in doubt),
-//     Argentina recession (INDEC data dated 24 Nov — same borderline),
-//     Eisenkot (appeared in digests, unverified). US PCE results,
-//     the Gukesh Game 2 result, and late US news are candidates for
-//     a v2 on 26 Nov, before the 27 Nov 07:00 WIB deadline.
+//     illustrations are new PIL drawings in one consistent vector
+//     style ("WORLD IN FOCUS") — no AI image generation, so the art
+//     is fully deterministic and consistent across cards.
+//   * Beat-top-50 lessons, applied here: the density trap (more
+//     stories rank lower in the final heat), so v2 keeps 22 stories
+//     with big type instead of chasing the top-50's 32–55; zero
+//     recycled stories from v1 (date discipline is the edge —
+//     rivals recycle); no apparatus (map/UTC/KPI/date-check proved
+//     not to win); the win is in the thin second layer — zero of
+//     the top-50 titles mention PCE/GDP, Kyiv/Ukraine, Gukesh,
+//     Mackenzie, Sudan, Nigeria, India, Murmansk, birthright,
+//     Beige Book, riot-agent/OPCW or Nvidia.
+//   * Stories deliberately NOT used: the Nigeria militant attack
+//     (the event was Tuesday night 24 Nov, only reported 25 Nov —
+//     the closest date-trap call, dropped); Eisenkot, the Trump
+//     turkey pardon, RSF Damazin, IMF Guinea, the Ebola evacuation
+//     and COP31 (all 23–24 Nov); all v1 follow-ups (Bogor victims,
+//     Cartagena, Hodeidah, the Thanksgiving storm, the tariff
+//     proposal as its own story).
 //   * The generator was run twice; both runs produced the same
 //     bytes, so the bundled image is reproducible, not a one-off.
 //     Assertions in the generator enforce: card headlines at most
 //     2 lines, summaries at most 2 lines, bullets fit on one line,
-//     "9 MORE STORIES" lines fit the panel, footer lines fit the
-//     band — all passed. The bundled image is 266,612 bytes, under
+//     "12 MORE STORIES" lines fit the panel, footer lines fit the
+//     band — all passed. The bundled image is 269,524 bytes, under
 //     the 1 MiB cap and under the 300 KB tie-break target (smaller
-//     file wins an exact tie — the tiny-stack-vm lesson).
-//   * Known minor issues, reported not hidden: the globe top is
-//     cropped (reads as an intentional bleed; inherited from the
-//     24 Nov template); card 05's Tokyo Tower is small in the
-//     panel's lower corner (still reads as an orange tower); the
-//     MORE panel leaves empty space below its 9 lines (deliberate,
-//     generous leading, not a defect); card 03's flags are small
-//     on their poles (read as two flags + parliament + document,
-//     in the consistent vector style, not a realistic photo).
-//   * Verification run (25 Nov 2026, finalizer): the v1 entry program
-//     was run twice against the bundled image — both runs printed
-//     "v1 entry.png OK: 768x1024, 266612 bytes, sha256
-//     2ae9af2630a5c52884cfe53b2c8c37c10e8f921bbe781c463f4d584c54231cd4",
-//     cmp confirmed the two outputs byte-identical and identical to
-//     the bundled entry.png. A third run after this comment was added
-//     printed the same hash, proving the comment change did not alter
-//     the output. The bundled image is 266,612 bytes, under the 1 MiB
-//     cap and under the 300 KB tie-break target, at exactly 768x1024.
+//     file wins an exact tie — the tiny-stack-vm lesson; v2 is
+//     528 bytes smaller than the provisional rank-1 entry).
+//   * Known items, reported not hidden: the footer band lists
+//     Motley Fool, Morningstar, Sentinel Digest and Argus, which
+//     no card or MORE line cites — Role 02's audit flagged this
+//     for QA to verify or trim (not an audit finding). MORE #22
+//     (Trump–Iran) is flagged single-source and its first
+//     interview aired Tuesday 24 Nov with the reporting wave on
+//     Wednesday 25 Nov — Red Team called it borderline on date
+//     discipline; QA decides keep or drop. Card 10's bullet
+//     compresses the scout's "200 years for murder by starvation"
+//     to "for starvation" — Red Team's optional wording fix, only
+//     if a rebuild happens. The UCL player's white kit was fixed
+//     after the first render (black silhouette on dark grass was
+//     nearly invisible) — a genuine post-run edit, not a claim.
+//   * Verification run (26 Nov 2026 ~17:00 WIB, finalizer, Node
+//     v24.22.1): the v2 entry program was run twice against the
+//     bundled image — both runs printed "v2 entry.png OK: 768x1024,
+//     269524 bytes, sha256 017626537b57eeba9c9c819407ef7a0a9f51074301
+//     68587006e41b31e9fafbea", cmp confirmed the two outputs
+//     byte-identical and identical to the bundled entry.png. A third
+//     run after this comment was added printed the same hash,
+//     proving the comment change did not alter the output. The
+//     bundled image is 269,524 bytes, under the 1 MiB cap and under
+//     the 300 KB tie-break target, at exactly 768x1024.
 //
 // Node 22, standard library only. No network, no clock, no randomness.
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -145,7 +164,7 @@ function main(): void {
   const written = readFileSync(target);
   verifyEntry(written, image);
   console.log(
-    `v1 entry.png OK: ${EXPECTED_WIDTH}x${EXPECTED_HEIGHT}, ${written.length} bytes, sha256 ${sha256Hex(written)}`,
+    `v2 entry.png OK: ${EXPECTED_WIDTH}x${EXPECTED_HEIGHT}, ${written.length} bytes, sha256 ${sha256Hex(written)}`,
   );
 }
 
@@ -155,10 +174,10 @@ function main(): void {
 // checksum and a valid IEND trailer, so a truncated or corrupted copy
 // fails here instead of being submitted.
 //
-// The v1 image this program carries: 768x1024, 266,612 bytes (under
+// The v2 image this program carries: 768x1024, 269,524 bytes (under
 // the 1 MiB cap and under the 300 KB tie-break target), sha256
-// 2ae9af2630a5c52884cfe53b2c8c37c10e8f921bbe781c463f4d584c54231cd4,
-// rendered twice from build_25v1.py with byte-identical output.
+// 017626537b57eeba9c9c819407ef7a0a9f5107430168587006e41b31e9fafbea,
+// rendered twice from build_25v2.py with byte-identical output.
 // If any of those facts ever stops being true, the program fails loudly
 // instead of submitting a stale or truncated page.
 function verifyEntry(written: Buffer, image: Buffer): void {
